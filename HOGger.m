@@ -17,8 +17,10 @@ function [hog] = HOGger( img, NBins, CSize, BlockSize )
 	if ndims( img ) == 3
 		img = rgb2gray( img );
 	end
-	[imag, iangle] = imgradient( img );
+	[imagn, iangle] = imgradient( img );
+	imagm( imagn==0 ) = 0.001;
 	iangle( iangle<0 ) = iangle( iangle<0 ) + 180;
+	iangle( iangle == 0 ) = 1;
 	
 	% --------- create cells and get their histograms.
 	
