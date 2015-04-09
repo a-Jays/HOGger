@@ -14,7 +14,7 @@ function [hst] = weighted_histogram( grad_mags, grad_angles, NBins, HLimit )
 		
 	
 	hst = zeros( NBins, 1 );
-	grad_angles( grad_angles == 0 ) = 1;
+	
 	grad_angles = ceil( grad_angles(:)*(NBins/HLimit) );
 	grad_mags = grad_mags(:);
 	for x = 1:length( grad_angles )
