@@ -30,10 +30,10 @@ function [hog] = HOGger( img, NBins, CSize, BlockSize )
 	p = q = 1;
 	CSize = 8;
 	
-	
-	for i=1:CSize:size(img,1)
+	[img_h, img_w]=size(img);
+	for i=1:CSize:img_h
 		q = 1;
-		for j=1:CSize:size(img,2)
+		for j=1:CSize:img_w
 			cell_hists(p,q,:) = weighted_histogram( imagn(i:i+CSize-1, j:j+CSize-1), iangle(i:i+CSize-1, j:j+CSize-1), 9,180 );
 			q = q+1;
 		end
