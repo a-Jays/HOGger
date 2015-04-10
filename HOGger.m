@@ -52,12 +52,13 @@ function [hog] = HOGger( img, NBins, CSize, BlockSize )
 		for j=1:size(cell_hists,2)-1
 			%hog = [ hog; block_normalise( cell_hists( i:i+1, j:j+1, : ) ) ];
 			temp = cell_hists( i:i+BlockSize-1, j:j+BlockSize-1, : ) ;
+			temp = temp(:);
 			%s = 1/sum(temp(:));
 			%hog(p:q,1) = temp(:)/sum(temp(:));
 			%hog(p:q,1) = block_normalise( cell_hists( i:i+1, j:j+1, : ) );
 			%p = q+1;
 			%q = q+36;
-			hog = [hog; temp(:)/sum(temp(:))];
+			hog = [hog; temp/sum(temp)];
 		end
 	end
 	end;
