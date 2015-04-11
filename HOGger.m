@@ -39,6 +39,7 @@ function [hog] = HOGger( img, NBins, CSize, BlockSize )
 		end
 		p = p+1; 
 	end
+	
 	%size( cell_hists )
 	% --------- group cells into blocks and normalise them
 	tic;
@@ -62,6 +63,13 @@ function [hog] = HOGger( img, NBins, CSize, BlockSize )
 		end
 	end
 	end;
+	hog2 = [];
+	B = reshape( cell_hists, [16*8 9] );
+	for ii = 1:16
+		temp = [ B(:,ii); B(:,ii+1); B(:,ii+16); B(:,ii+16+1) ];
+		temp = temp(:);
+		hog2 = [hog2; temp/sum(temp)];
+	end
 	toc
 	%size(hog)
 end
