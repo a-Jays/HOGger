@@ -31,9 +31,9 @@ function [hog] = HOGger( img, NBins, CSize, BlockSize )
 	CSize = 8;
 	
 	[img_h, img_w]=size(img);
-	for i=1:CSize:img_h
+	for i=1:CSize:img_h-1
 		q = 1;
-		for j=1:CSize:img_w
+		for j=1:CSize:img_w-1
 			cell_hists(p,q,:) = weighted_histogram( imagn(i:i+CSize-1, j:j+CSize-1), iangle(i:i+CSize-1, j:j+CSize-1), 9,180 );
 			q = q+1;
 		end
@@ -48,9 +48,10 @@ function [hog] = HOGger( img, NBins, CSize, BlockSize )
 	%hog = zeros( BlockSize*CSize*NBins, 1 );
 	%fprintf('%0.2f ', cell_hists(1,1,:)); fprintf('\n');
 	hog = [];
-	p = 1;	q = 36;
-	for i=1:size(cell_hists,1)-1
-		for j=1:size(cell_hists,2)-1
+	%p = 1;	q = 36;
+	[cell_hists_h, cell_hists_w, ~] = size(cell_hists);
+	for i=1:cell_hists_h-1
+		for j=1:cell_hists_w-1
 			%hog = [ hog; block_normalise( cell_hists( i:i+1, j:j+1, : ) ) ];
 			temp = cell_hists( i:i+BlockSize-1, j:j+BlockSize-1, : ) ;
 			temp = temp(:);
@@ -63,13 +64,13 @@ function [hog] = HOGger( img, NBins, CSize, BlockSize )
 		end
 	end
 	end;
-	hog2 = [];
-	B = reshape( cell_hists, [16*8 9] );
-	for ii = 1:16
-		temp = [ B(:,ii); B(:,ii+1); B(:,ii+16); B(:,ii+16+1) ];
-		temp = temp(:);
-		hog2 = [hog2; temp/sum(temp)];
-	end
+%	hog2 = [];
+%	B = reshape( cell_hists, [16*8 9] );
+%	for ii = 1:16
+%		temp = [ B(:,ii); B(:,ii+1); B(:,ii+16); B(:,ii+16+1) ];
+%		temp = temp(:);
+%		hog2 = [hog2; temp/sum(temp)];
+%	end
 	toc
 	%size(hog)
 end
