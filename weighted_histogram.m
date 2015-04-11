@@ -16,14 +16,14 @@ function [hst] = weighted_histogram( grad_mags, grad_angles, NBins, HLimit )
 	hst = zeros( NBins, 1 );
 	
 	%grad_angles = ceil( grad_angles(:)*(NBins/HLimit) );
-	[~,grad_angles] = histc(grad_angles(:,[0:ceil(180/NBins):180]));
+	[~,grad_angles] = histc(grad_angles(:),[0:ceil(180/NBins):180]);
 	grad_mags = grad_mags(:);
 	%for x = 1:length( grad_angles )
 	%	hst(grad_angles(x)) = hst(grad_angles(x)) + grad_mags(x);
 	%end
 	
 	for i = 1:max(grad_angles)
-		 hst(i)=sum(grad_mags(grad_angles==i);)
+		 hst(i)=sum(grad_mags(grad_angles==i));
 	end
 	
 	%size(hst)
