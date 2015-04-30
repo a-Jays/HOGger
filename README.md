@@ -15,4 +15,4 @@ TODO:
 
 * Add PCA/LDA to reduce dimensionality of this thing.
 
-* Add learning.
+* <s>Add learning.</s>
